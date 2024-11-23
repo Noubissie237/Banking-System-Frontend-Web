@@ -1,0 +1,29 @@
+body {
+    font-family: Arial, sans-serif;
+  }
+  
+  .card {
+    border: none;
+    border-radius: 8px;
+  }
+  
+  .nav-link {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  
+  .nav-link i {
+    font-size: 1.2rem;
+  }
+  
+
+  .nav-link.active {
+    background-color: #57e6151c;
+    color: #4154f1;
+    border-bottom: 2px solid orange;
+  }
+
+  .totalCfa {
+    font-size: 30px;
+  }
