@@ -2,6 +2,8 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css'
+
+
 const LoginPage = () => {
   const [login, setLogin] = useState('');
   const [password, setPassword] = useState('');
@@ -11,14 +13,29 @@ const LoginPage = () => {
   const handleLogin = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.post('SERVICE-AUTHENTIFICATION/auth/login-admin', { login, password });
-      const token = response.data;
+      const response = await fetch('/SERVICE-AUTHENTIFICATION/auth/login-admin', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json',
+        },
+        body: JSON.stringify({ login, password }),
+      });
+  
+      if (!response.ok) {
+        throw new Error('Login ou mot de passe incorrect');
+      }
+  
+      const data = await response.json(); 
+      const token = data.token;
+      
       localStorage.setItem('token', token);
-      navigate('/'); // Redirigez vers le dashboard après connexion
+      navigate('/'); 
     } catch (err) {
-      setError('Login ou mot de passe incorrect');
+      setError(err.message || 'Une erreur est survenue');
     }
   };
+  
+  
 
   return (
     <div className="login-container d-flex justify-content-center align-items-center">

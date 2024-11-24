@@ -6,7 +6,7 @@ import Clients from "./components/Clients";
 import Finances from "./components/Finances";
 import Agents from "./components/Agents";
 import PrivateRoute from "./services/PrivateRoute";
-import { BrowserRouter as Router, Route, Routes, useLocation } from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Accounts from "./components/Accounts";
 import LoginPage from "./pages/LoginPage";
 
@@ -21,6 +21,12 @@ function App() {
 function Layout() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
+  const token = localStorage.getItem('token'); // Vérifie si l'utilisateur est connecté
+
+  // Si l'utilisateur est connecté et essaie d'accéder à la page login, on redirige vers la page d'accueil
+  if (isLoginPage && token) {
+    return <Navigate to="/" />;
+  }
 
   return (
     <div className="d-flex">
@@ -36,11 +42,42 @@ function Layout() {
               </PrivateRoute>
             }
           />
-          <Route path="/clients" element={<Clients />} />
-          <Route path="/agents" element={<Agents />} />
-          <Route path="/finances" element={<Finances />} />
-          <Route path="/accounts" element={<Accounts />} />
-          <Route path="/login" element={<LoginPage />} />
+          <Route
+            path="/clients"
+            element={
+              <PrivateRoute>
+                <Clients />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/agents"
+            element={
+              <PrivateRoute>
+                <Agents />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/finances"
+            element={
+              <PrivateRoute>
+                <Finances />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/accounts"
+            element={
+              <PrivateRoute>
+                <Accounts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/login"
+            element={<LoginPage />}
+          />
         </Routes>
       </div>
     </div>

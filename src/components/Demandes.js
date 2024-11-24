@@ -1,5 +1,4 @@
 import React, { useEffect, useState } from "react";
-import CardInfo from "./CardInfo";
 
 const Demandes = () => {
     const [demandes, setDemandes] = useState([]);
