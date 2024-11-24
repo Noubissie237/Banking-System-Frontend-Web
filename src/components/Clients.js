@@ -11,7 +11,6 @@ const Clients = () => {
 
     const token = localStorage.getItem('token');
     const admin = getAdminId(token);
-
     useEffect(() => {
         fetch('/SERVICE-USERS/api/get-clients-agence/'+admin[0])
             .then((response) => {
