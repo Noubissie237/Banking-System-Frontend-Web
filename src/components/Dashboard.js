@@ -1,16 +1,14 @@
 import React, { useState, useEffect } from 'react';
 import CardInfo from "./CardInfo";
-import { getAgents, getClients } from "../services/apiService";
+import { getAgents, getClients, getSolde } from "../services/apiService";
 import Demandes from './Demandes';
-import getAdminId from '../services/Security';
 
 const Dashboard = () => {
 
   const [clients, setClients] = useState([]);
+  const [soldeAgence, setSoldeAgence] = useState(0);
   const [agents, setAgents] = useState([]);
-  const token = localStorage.getItem('token');
-  const admin = getAdminId(token);
-
+  
   useEffect(() => {
     const fetchClient = async () => {
       try {
@@ -23,6 +21,19 @@ const Dashboard = () => {
     fetchClient();
   }, []
   );
+
+  useEffect(() => {
+    const fetchSolde = async () => {
+      try {
+        const soldeAgence = await getSolde();
+        setSoldeAgence(soldeAgence);
+      } catch (error) {
+          console.log("Impossible de recupérer les solde");
+      }
+    };
+    fetchSolde();
+  }, []
+);
 
   useEffect(() => {
     const fetchAgent = async () => {
@@ -41,7 +52,7 @@ const Dashboard = () => {
 
     <div className="p-4">
       <div className="row mb-4">
-        <CardInfo title="Solde" color="success" icon="bi-cash-coin" value={admin[2]} unit="XAF"
+        <CardInfo title="Solde" color="success" icon="bi-cash-coin" value={soldeAgence} unit="XAF"
           svg={
             <svg xmlns="http://www.w3.org/2000/svg" width="40" height="40" fill="green" className="bi bi-cash-coin" viewBox="0 0 16 16">
               <path fillRule="evenodd" d="M11 15a4 4 0 1 0 0-8 4 4 0 0 0 0 8m5-4a5 5 0 1 1-10 0 5 5 0 0 1 10 0" />

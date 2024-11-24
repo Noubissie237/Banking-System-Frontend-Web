@@ -1,11 +1,16 @@
 import React, { useEffect, useState } from "react";
+import getAdminId from '../services/Security';
+
+const token = localStorage.getItem('token');
+const admin = getAdminId(token);
+
 
 const Demandes = () => {
     const [demandes, setDemandes] = useState([]);
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("/SERVICE-ADMIN/api/demande/get-all")
+        fetch("/SERVICE-ADMIN/api/demande/get-all-by-agence/"+admin[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Erreur lors du chargement des données.");

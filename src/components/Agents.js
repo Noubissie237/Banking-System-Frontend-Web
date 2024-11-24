@@ -1,5 +1,7 @@
 import React, { useEffect, useState } from "react";
 import CardInfo from "./CardInfo";
+import getAdminId from '../services/Security';
+
 
 const Agents = () => {
     const [agents, setAgents] = useState([]);
@@ -7,8 +9,11 @@ const Agents = () => {
     const [showModal, setShowModal] = useState(false);
     const [newAgent, setNewAgent] = useState({ nom: '', prenom: '', email: '', tel: '', numero_cni: '' });
 
+    const token = localStorage.getItem('token');
+    const admin = getAdminId(token);
+
     useEffect(() => {
-        fetch("/SERVICE-USERS/api/get-agents")
+        fetch("/SERVICE-USERS/api/get-agents-agence/"+admin[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Erreur lors du chargement des données.");
