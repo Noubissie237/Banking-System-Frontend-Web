@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import axios from 'axios';
 import { useNavigate } from 'react-router-dom';
 import '../styles/Login.css'
+import getAdminId from '../services/Security';
 
 
 const LoginPage = () => {
@@ -27,6 +28,7 @@ const LoginPage = () => {
   
       const data = await response.json(); 
       const token = data.token;
+      const adminId = getAdminId(token);
       
       localStorage.setItem('token', token);
       navigate('/'); 
