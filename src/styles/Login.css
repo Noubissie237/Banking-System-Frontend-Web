@@ -1,0 +1,33 @@
+.login-container {
+    min-height: 100vh;
+    background-color: #f8f9fa; /* Couleur de fond claire */
+  }
+  
+  .login-card {
+    background: white;
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  }
+  
+  .login-card h1 {
+    color: #343a40; /* Couleur du titre */
+  }
+  
+  .login-card .btn-primary {
+    background-color: #007bff;
+    border: none;
+  }
+  
+  .login-card .btn-primary:hover {
+    background-color: #0056b3;
+  }
+  
+  .login-card .form-control {
+    border-radius: 4px;
+  }
+  
+  .login-card label {
+    font-weight: bold;
+  }
+  

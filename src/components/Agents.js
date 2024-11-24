@@ -71,9 +71,9 @@ const Agents = () => {
                 }
             })
             .then((data) => {
-                setAgents([...agents, data]); // Ajoute le nouveau agent à la liste
-                setShowModal(false); // Ferme la modal
-                setNewAgent({ nom: '', prenom: '', email: '', tel: '' }); // Réinitialise le formulaire
+                setAgents([...agents, data]); 
+                setShowModal(false); 
+                setNewAgent({ nom: '', prenom: '', email: '', tel: '' });
             })
             .catch((error) => {
                 console.error("Erreur :", error);

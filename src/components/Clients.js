@@ -71,9 +71,9 @@ const Clients = () => {
                 }
             })
             .then((data) => {
-                setClients([...clients, data]); // Ajoute le nouveau client à la liste
-                setShowModal(false); // Ferme la modal
-                setNewClient({ nom: '', prenom: '', email: '', tel: '' }); // Réinitialise le formulaire
+                setClients([...clients, data]);
+                setShowModal(false);
+                setNewClient({ nom: '', prenom: '', email: '', tel: '' });
             })
             .catch((error) => {
                 console.error("Erreur :", error);
