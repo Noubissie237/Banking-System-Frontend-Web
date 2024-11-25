@@ -22,7 +22,7 @@ const Diagram = () => {
     const fetchTransactions = async () => {
       try {
         const response = await axios.get(
-          `/SERVICE-TRANSACTIONS/transactions/get-all-by-agence/${admin[0]}`
+          `https://proxy.quick-send.site/SERVICE-TRANSACTIONS/transactions/get-all-by-agence/${admin[0]}`
         );
 
         const data = response.data;
