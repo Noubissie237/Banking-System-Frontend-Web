@@ -40,7 +40,7 @@ const Transactions = () => {
 
         if (searchTerm) {
             const lowerCaseSearchTerm = searchTerm.toLowerCase();
-            filteredData = filteredData.filter((transaction) => 
+            filteredData = filteredData.filter((transaction) =>
                 transaction.transactionType.toLowerCase().includes(lowerCaseSearchTerm) ||
                 transaction.numeroSender.toLowerCase().includes(lowerCaseSearchTerm) ||
                 transaction.numeroReceiver.toLowerCase().includes(lowerCaseSearchTerm) ||
@@ -130,26 +130,26 @@ const Transactions = () => {
                     </tr>
                 </thead>
                 <tbody>
-    {filteredTransactions.slice().reverse().map((transaction, index) => (
-        <tr key={index}>
-            <th
-                style={{
-                    fontSize: "15px",
-                    fontFamily: "arial, Sans serif",
-                    color: transaction.transactionType === "RETRAIT" ? "red" : "green"
-                }}
-            >
-                {transaction.transactionType}
-            </th>
-            <td>
-                {transaction.numeroSender === "00000000" ? "Mon Agence" : transaction.numeroSender}
-            </td>
-            <td>{transaction.numeroReceiver}</td>
-            <td className="fw-bold">{transaction.amount.toLocaleString()} XAF</td>
-            <td>{new Date(transaction.dateEvent).toLocaleString()}</td>
-        </tr>
-    ))}
-</tbody>
+                    {filteredTransactions.slice().reverse().map((transaction, index) => (
+                        <tr key={index}>
+                            <th
+                                style={{
+                                    fontSize: "15px",
+                                    fontFamily: "arial, Sans serif",
+                                    color: transaction.transactionType === "RETRAIT" ? "red" : "green"
+                                }}
+                            >
+                                {transaction.transactionType}
+                            </th>
+                            <td>
+                                {transaction.numeroSender === "00000000" ? "Mon Agence" : transaction.numeroSender}
+                            </td>
+                            <td>{transaction.numeroReceiver}</td>
+                            <td className="fw-bold">{transaction.amount.toLocaleString()} XAF</td>
+                            <td>{new Date(transaction.dateEvent).toLocaleString()}</td>
+                        </tr>
+                    ))}
+                </tbody>
             </table>
         </div>
     );
