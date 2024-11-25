@@ -7,7 +7,7 @@ const Transactions = () => {
     const [transactions, setTransactions] = useState([]);
     const [filteredTransactions, setFilteredTransactions] = useState([]);
     const [filter, setFilter] = useState("ALL");
-    const [searchTerm, setSearchTerm] = useState(""); // Nouvelle variable pour la recherche
+    const [searchTerm, setSearchTerm] = useState("");
     const [showDropdown, setShowDropdown] = useState(false);
 
     const token = localStorage.getItem('token');
@@ -27,7 +27,7 @@ const Transactions = () => {
         };
 
         fetchTransactions();
-    }, [admin, filter, searchTerm]); // Inclure `searchTerm` pour filtrer dynamiquement
+    }, [admin, filter, searchTerm]);
 
     const applyFilter = (data, filter, searchTerm) => {
         let filteredData = data;
@@ -108,7 +108,6 @@ const Transactions = () => {
                 </div>
             </div>
 
-            {/* Barre de recherche */}
             <div style={{ marginBottom: "20px" }}>
                 <input
                     type="text"
@@ -131,26 +130,26 @@ const Transactions = () => {
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredTransactions.map((transaction, index) => (
-                        <tr key={index}>
-                            <th
-                                style={{
-                                    fontSize: "15px",
-                                    fontFamily: "arial, Sans serif",
-                                    color: transaction.transactionType === "RETRAIT" ? "red" : "green"
-                                }}
-                            >
-                                {transaction.transactionType}
-                            </th>
-                            <td>
-                                {transaction.numeroSender === "00000000" ? "Mon Agence" : transaction.numeroSender}
-                            </td>
-                            <td>{transaction.numeroReceiver}</td>
-                            <td className="fw-bold">{transaction.amount.toLocaleString()} XAF</td>
-                            <td>{new Date(transaction.dateEvent).toLocaleString()}</td>
-                        </tr>
-                    ))}
-                </tbody>
+    {filteredTransactions.slice().reverse().map((transaction, index) => (
+        <tr key={index}>
+            <th
+                style={{
+                    fontSize: "15px",
+                    fontFamily: "arial, Sans serif",
+                    color: transaction.transactionType === "RETRAIT" ? "red" : "green"
+                }}
+            >
+                {transaction.transactionType}
+            </th>
+            <td>
+                {transaction.numeroSender === "00000000" ? "Mon Agence" : transaction.numeroSender}
+            </td>
+            <td>{transaction.numeroReceiver}</td>
+            <td className="fw-bold">{transaction.amount.toLocaleString()} XAF</td>
+            <td>{new Date(transaction.dateEvent).toLocaleString()}</td>
+        </tr>
+    ))}
+</tbody>
             </table>
         </div>
     );
