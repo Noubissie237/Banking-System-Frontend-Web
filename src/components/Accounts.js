@@ -171,20 +171,20 @@ const Accounts = () => {
                             <table className="table table-striped table-hover">
                                 <thead className="table-dark">
                                     <tr>
+                                        <th>Matricule</th>
                                         <th>Numéro</th>
                                         <th>Solde (XAF)</th>
                                         <th>Date de Création</th>
-                                        <th>Matricule</th>
                                         <th>Actions</th>
                                     </tr>
                                 </thead>
                                 <tbody>
                                     {agentAccounts.map((account) => (
                                         <tr key={account.id}>
+                                            <td>{account.matricule || "N/A"}</td>
                                             <td>{account.number}</td>
                                             <td>{account.solde}</td>
                                             <td>{new Date(account.dateCreation).toLocaleString()}</td>
-                                            <td>{account.matricule || "N/A"}</td>
                                             <td>
                                                 <button
                                                     className="btn btn-success btn-sm me-2"
