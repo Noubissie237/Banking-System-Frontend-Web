@@ -12,7 +12,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError(''); // Réinitialiser l'erreur à chaque tentative de connexion
     try {
-      const response = await fetch('/SERVICE-AUTHENTIFICATION/auth/login-admin', {
+      const response = await fetch('https://proxy.quick-send.site/SERVICE-AUTHENTIFICATION/auth/login-admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

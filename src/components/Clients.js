@@ -12,7 +12,7 @@ const Clients = () => {
     const token = localStorage.getItem('token');
     const admin = getAdminId(token);
     useEffect(() => {
-        fetch('/SERVICE-USERS/api/get-clients-agence/'+admin[0])
+        fetch('https://proxy.quick-send.site/SERVICE-USERS/api/get-clients-agence/'+admin[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Erreur lors du chargement des données.");
@@ -31,7 +31,7 @@ const Clients = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("Voulez-vous vraiment supprimer ce client ?")) {
-            fetch(`/SERVICE-USERS/api/delete-client/${id}`, {
+            fetch(`https://proxy.quick-send.site/SERVICE-USERS/api/delete-client/${id}`, {
                 method: "GET",
             })
                 .then((response) => {
@@ -60,7 +60,7 @@ const Clients = () => {
     };
 
     const handleAddClient = () => {
-        fetch('/SERVICE-USERS/api/add-client', {
+        fetch('https://proxy.quick-send.site/SERVICE-USERS/api/add-client', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json',
