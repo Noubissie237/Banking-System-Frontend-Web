@@ -17,7 +17,7 @@ const Transactions = () => {
         const fetchTransactions = async () => {
             try {
                 const response = await axios.get(
-                    "https://proxy.quick-send.site/SERVICE-TRANSACTIONS/transactions/get-all-by-agence/" + admin[0]
+                    "/SERVICE-TRANSACTIONS/transactions/get-all-by-agence/" + admin[0]
                 );
                 setTransactions(response.data);
                 applyFilter(response.data, filter, searchTerm);

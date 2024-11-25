@@ -17,7 +17,7 @@ const Accounts = () => {
     const fetchClientAccounts = async () => {
         try {
             const response = await fetch(
-                "https://proxy.quick-send.site/SERVICE-ACCOUNT-MANAGEMENT/api/account/get-client-accounts/" + admin[0]
+                "/SERVICE-ACCOUNT-MANAGEMENT/api/account/get-client-accounts/" + admin[0]
             );
             const data = await response.json();
             setClientAccounts(data);
@@ -30,7 +30,7 @@ const Accounts = () => {
     const fetchAgentAccounts = async () => {
         try {
             const response = await fetch(
-                "https://proxy.quick-send.site/SERVICE-ACCOUNT-MANAGEMENT/api/account/get-agent-accounts/" + admin[0]
+                "/SERVICE-ACCOUNT-MANAGEMENT/api/account/get-agent-accounts/" + admin[0]
             );
             const data = await response.json();
             setAgentAccounts(data);
@@ -47,7 +47,7 @@ const Accounts = () => {
         }
         try {
             const response = await fetch(
-                "https://proxy.quick-send.site/SERVICE-ADMIN/api/demande/recharge-account",
+                "/SERVICE-ADMIN/api/demande/recharge-account",
                 {
                     method: "POST",
                     headers: {
@@ -96,7 +96,7 @@ const Accounts = () => {
 
     const handleDeleteClientAccount = (id) => {
         if (window.confirm("Voulez-vous vraiment supprimer ce compte ?")) {
-            fetch(`https://proxy.quick-send.site/SERVICE-ACCOUNT-MANAGEMENT/accounts/${id}`, {
+            fetch(`/SERVICE-ACCOUNT-MANAGEMENT/accounts/${id}`, {
                 method: "DELETE",
             })
                 .then((response) => {
@@ -115,7 +115,7 @@ const Accounts = () => {
 
     const handleDeleteAgentAccount = (id) => {
         if (window.confirm("Voulez-vous vraiment supprimer ce compte ?")) {
-            fetch(`https://proxy.quick-send.site/SERVICE-ACCOUNT-MANAGEMENT/accounts/${id}`, {
+            fetch(`/SERVICE-ACCOUNT-MANAGEMENT/accounts/${id}`, {
                 method: "DELETE",
             })
                 .then((response) => {
