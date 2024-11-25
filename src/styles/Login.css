@@ -1,6 +1,6 @@
 .login-container {
     min-height: 100vh;
-    background-color: #f8f9fa; /* Couleur de fond claire */
+    background-color: #f8f9fa;
   }
   
   .login-card {
@@ -11,7 +11,7 @@
   }
   
   .login-card h1 {
-    color: #343a40; /* Couleur du titre */
+    color: #343a40; 
   }
   
   .login-card .btn-primary {

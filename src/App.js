@@ -21,9 +21,8 @@ function App() {
 function Layout() {
   const location = useLocation();
   const isLoginPage = location.pathname === "/login";
-  const token = localStorage.getItem('token'); // Vérifie si l'utilisateur est connecté
+  const token = localStorage.getItem('token'); 
 
-  // Si l'utilisateur est connecté et essaie d'accéder à la page login, on redirige vers la page d'accueil
   if (isLoginPage && token) {
     return <Navigate to="/" />;
   }

@@ -5,6 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Accounts = () => {
     const [clientAccounts, setClientAccounts] = useState([]);
     const [agentAccounts, setAgentAccounts] = useState([]);
+    const [selectedAccount, setSelectedAccount] = useState(null);
+    const [rechargeAmount, setRechargeAmount] = useState("");
+    const [showModal, setShowModal] = useState(false);
     const token = localStorage.getItem('token');
     const admin = getAdminId(token);
 
@@ -29,6 +32,42 @@ const Accounts = () => {
             setAgentAccounts(data);
         } catch (error) {
             console.error("Erreur lors de la récupération des comptes agents :", error);
+        }
+    };
+
+    const handleRecharge = async () => {
+        if (!selectedAccount || !rechargeAmount) {
+            alert("Veuillez entrer un montant valide.");
+            return;
+        }
+        try {
+            const response = await fetch(
+                "/SERVICE-ADMIN/api/demande/recharge-account",
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                        Authorization: `Bearer ${token}`,
+                    },
+                    body: JSON.stringify({
+                        'agence': admin[0],
+                        'numero': selectedAccount.number,
+                        'montant': parseFloat(rechargeAmount),
+                    }),
+                }
+            );
+            if (response.ok) {
+                alert("Recharge effectuée avec succès !");
+                setRechargeAmount("");
+                setShowModal(false);
+                fetchClientAccounts();
+            } else {
+                const errorData = await response.json();
+                alert(`Erreur : ${errorData.message}`);
+            }
+        } catch (error) {
+            console.error("Erreur lors de la recharge :", error);
+            alert("Une erreur est survenue lors de la recharge.");
         }
     };
 
@@ -101,7 +140,10 @@ const Accounts = () => {
                                                 <td>
                                                     <button
                                                         className="btn btn-success btn-sm me-2"
-                                                        onClick={() => alert("Fonction de modification à implémenter.")}
+                                                        onClick={() => {
+                                                            setSelectedAccount(account);
+                                                            setShowModal(true);
+                                                        }}
                                                     >
                                                         Recharger
                                                     </button>
@@ -146,7 +188,10 @@ const Accounts = () => {
                                             <td>
                                                 <button
                                                     className="btn btn-success btn-sm me-2"
-                                                    onClick={() => alert("Fonction de modification à implémenter.")}
+                                                    onClick={() => {
+                                                        setSelectedAccount(account);
+                                                        setShowModal(true);
+                                                    }}
                                                 >
                                                     Recharger
                                                 </button>
@@ -167,6 +212,54 @@ const Accounts = () => {
                     </div>
                 </div>
             </div>
+
+            {showModal && (
+                <div className="modal show d-block" tabIndex="-1">
+                    <div className="modal-dialog">
+                        <div className="modal-content bg-info">
+                            <div className="modal-header">
+                                <h5 className="modal-title">Recharger le compte</h5>
+                                <button
+                                    type="button"
+                                    className="btn-close"
+                                    onClick={() => setShowModal(false)}
+                                ></button>
+                            </div>
+                            <div className="modal-body">
+                                <p>Numéro de compte : {selectedAccount.number}</p>
+                                <div className="mb-3">
+                                    <label htmlFor="rechargeAmount" className="form-label">Montant à recharger</label>
+                                    <input
+                                        type="number"
+                                        className="form-control"
+                                        id="rechargeAmount"
+                                        value={rechargeAmount}
+                                        onChange={(e) => setRechargeAmount(e.target.value)}
+                                    />
+                                </div>
+                            </div>
+                            <div className="modal-footer">
+                                <button
+                                    type="button"
+                                    className="btn btn-secondary"
+                                    onClick={() => setShowModal(false)}
+                                >
+                                    Annuler
+                                </button>
+                                <button
+                                    type="button"
+                                    className="btn btn-primary"
+                                    onClick={handleRecharge}
+                                >
+                                    Recharger
+                                </button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            )}
+
+
         </div>
     );
 
