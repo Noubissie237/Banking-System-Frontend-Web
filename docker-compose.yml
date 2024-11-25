@@ -1,0 +1,7 @@
+services:
+  fontend-quick-send:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - "2371:80"
