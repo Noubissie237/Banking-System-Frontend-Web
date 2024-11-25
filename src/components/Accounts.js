@@ -5,6 +5,9 @@ import "bootstrap/dist/css/bootstrap.min.css";
 const Accounts = () => {
     const [clientAccounts, setClientAccounts] = useState([]);
     const [agentAccounts, setAgentAccounts] = useState([]);
+    const [filteredClientAccounts, setFilteredClientAccounts] = useState([]);
+    const [filteredAgentAccounts, setFilteredAgentAccounts] = useState([]);
+    const [searchTerm, setSearchTerm] = useState("");
     const [selectedAccount, setSelectedAccount] = useState(null);
     const [rechargeAmount, setRechargeAmount] = useState("");
     const [showModal, setShowModal] = useState(false);
@@ -18,6 +21,7 @@ const Accounts = () => {
             );
             const data = await response.json();
             setClientAccounts(data);
+            setFilteredClientAccounts(data);
         } catch (error) {
             console.error("Erreur lors de la récupération des comptes clients :", error);
         }
@@ -30,6 +34,7 @@ const Accounts = () => {
             );
             const data = await response.json();
             setAgentAccounts(data);
+            setFilteredAgentAccounts(data);
         } catch (error) {
             console.error("Erreur lors de la récupération des comptes agents :", error);
         }
@@ -74,7 +79,20 @@ const Accounts = () => {
     useEffect(() => {
         fetchClientAccounts();
         fetchAgentAccounts();
-    },);
+    }, [], []);
+
+    useEffect(() => {
+        const filteredClients = clientAccounts.filter(account =>
+            account.number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            account.matricule?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        const filteredAgents = agentAccounts.filter(account =>
+            account.number?.toLowerCase().includes(searchTerm.toLowerCase()) ||
+            account.matricule?.toLowerCase().includes(searchTerm.toLowerCase())
+        );
+        setFilteredClientAccounts(filteredClients);
+        setFilteredAgentAccounts(filteredAgents);
+    }, [searchTerm, clientAccounts, agentAccounts]);
 
     const handleDeleteClientAccount = (id) => {
         if (window.confirm("Voulez-vous vraiment supprimer ce compte ?")) {
@@ -116,11 +134,21 @@ const Accounts = () => {
 
     return (
         <div className="mx-2 mt-5">
-            <div className="row">
+                <div style={{ marginBottom: "20px" }}>
+                    <input
+                        type="text"
+                        className="form-control"
+                        placeholder="Rechercher (par numéro ou matricule)"
+                        value={searchTerm}
+                        onChange={(e) => setSearchTerm(e.target.value)}
+                        style={{ maxWidth: "300px" }}
+                    />
+                </div>
+            <div className="row mb-4">
                 <div className="col-md-6">
                     <h2 className="text-center mb-4">Comptes Clients</h2>
                     <div className="table-responsive">
-                        {clientAccounts.length > 0 ? (
+                        {filteredClientAccounts.length > 0 ? (
                             <table className="table table-striped table-hover">
                                 <thead className="table-dark">
                                     <tr>
@@ -131,7 +159,7 @@ const Accounts = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {clientAccounts.map((account) => (
+                                    {filteredClientAccounts.map((account) => (
                                         account.matricule ? null :
                                             <tr key={account.id}>
                                                 <td>{account.number}</td>
@@ -167,7 +195,7 @@ const Accounts = () => {
                 <div className="col-md-6">
                     <h2 className="text-center mb-4">Comptes Agents</h2>
                     <div className="table-responsive">
-                        {agentAccounts.length > 0 ? (
+                        {filteredAgentAccounts.length > 0 ? (
                             <table className="table table-striped table-hover">
                                 <thead className="table-dark">
                                     <tr>
@@ -179,7 +207,7 @@ const Accounts = () => {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {agentAccounts.map((account) => (
+                                    {filteredAgentAccounts.map((account) => (
                                         <tr key={account.id}>
                                             <td>{account.matricule || "N/A"}</td>
                                             <td>{account.number}</td>

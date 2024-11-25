@@ -6,7 +6,7 @@ const getAdminId = (token) => {
       return [decodedToken.id, decodedToken.nom]; 
     } catch (error) {
       console.error("Erreur lors de la décodification du token", error);
-      return null;
+      return 0;
     }
 };
   
