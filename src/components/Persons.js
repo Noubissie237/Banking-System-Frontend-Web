@@ -48,7 +48,7 @@ const Persons = () => {
 
     const handleNotifier = (tel) => {
         const notificationData = {
-            title: notificationTitle,
+            titre: notificationTitle,
             message: notificationMessage,
             idAgence: admin[0],
             destinataire: tel
