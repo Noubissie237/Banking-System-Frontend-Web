@@ -1,6 +1,10 @@
 import React, { useState } from "react";
 import "bootstrap/dist/css/bootstrap.min.css";
 import Persons from "./Persons";
+import getAdminId from '../services/Security';
+
+const token = localStorage.getItem('token');
+const admin = getAdminId(token);
 
 const Notification = () => {
     const [showModal, setShowModal] = useState(false);
@@ -20,9 +24,34 @@ const Notification = () => {
     };
 
     const handleSendNotification = () => {
-        alert(
-            `Notification envoyée à ${notificationType} :\n\nTitre: ${notificationTitle}\nMessage: ${notificationMessage}`
-        );
+
+        const notificationData = {
+            titre: notificationTitle,
+            message: notificationMessage,
+            idAgence: admin[0],
+            destinataire: notificationType
+        };
+
+        fetch(`/SERVICE-NOTIFICATION/api/send-notification`, {
+            method: "POST",
+            headers: {
+                "Content-Type": "application/json",
+            },
+            body: JSON.stringify(notificationData),
+        })
+            .then((response) => {
+                if (response.ok) {
+                    alert(
+                        `Notification envoyée à ${notificationType} :\n\nTitre: ${notificationTitle}\nMessage: ${notificationMessage}`
+                    );
+                } else {
+                    alert("Erreur lors de l'envoi de la notification.");
+                }
+            })
+            .catch((error) => {
+                console.error("Erreur :", error);
+            });
+
         handleCloseModal();
     };
 
