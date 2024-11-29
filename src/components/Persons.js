@@ -46,14 +46,16 @@ const Persons = () => {
             });
     }, []);
 
-    const handleNotifier = (id) => {
+    const handleNotifier = (tel) => {
         const notificationData = {
             title: notificationTitle,
             message: notificationMessage,
+            idAgence: admin[0],
+            destinataire: tel
         };
 
-        fetch(`/SERVICE-NOTIFICATION/api/person/update-statut/${id}?statut=ACCEPTEE`, {
-            method: "PUT",
+        fetch(`/SERVICE-NOTIFICATION/api/send-notification`, {
+            method: "POST",
             headers: {
                 "Content-Type": "application/json",
             },
@@ -61,7 +63,6 @@ const Persons = () => {
         })
             .then((response) => {
                 if (response.ok) {
-                    setPersons(persons.filter((person) => person.id !== id));
                     alert("Notification envoyée avec succès.");
                 } else {
                     alert("Erreur lors de l'envoi de la notification.");
@@ -185,7 +186,7 @@ const Persons = () => {
                                 <button
                                     type="button"
                                     className="btn btn-primary"
-                                    onClick={() => handleNotifier(selectedPerson.id)}
+                                    onClick={() => handleNotifier(selectedPerson.tel)}
                                 >
                                     Envoyer
                                 </button>
