@@ -48,6 +48,14 @@ function Sidebar() {
         </li>
         <li className="nav-item">
           <NavLink 
+            to="/notification" 
+            className={`nav-link fs-5 ${location.pathname === "/notification" ? "active text-success" : "text-dark"}`}
+          >
+            <i className="bi bi-person"></i> Notifications
+          </NavLink>
+        </li>
+        <li className="nav-item">
+          <NavLink 
             to="/finances" 
             className={`nav-link fs-5 ${location.pathname === "/finances" ? "active text-success" : "text-dark"}`}
           >

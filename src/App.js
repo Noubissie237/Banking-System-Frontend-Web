@@ -5,6 +5,7 @@ import Dashboard from "./components/Dashboard";
 import Clients from "./components/Clients";
 import Finances from "./components/Finances";
 import Agents from "./components/Agents";
+import Notification from "./components/Notification";
 import PrivateRoute from "./services/PrivateRoute";
 import { BrowserRouter as Router, Route, Routes, useLocation, Navigate } from "react-router-dom";
 import Accounts from "./components/Accounts";
@@ -70,6 +71,14 @@ function Layout() {
             element={
               <PrivateRoute>
                 <Accounts />
+              </PrivateRoute>
+            }
+          />
+          <Route
+            path="/notification"
+            element={
+              <PrivateRoute>
+                <Notification />
               </PrivateRoute>
             }
           />
