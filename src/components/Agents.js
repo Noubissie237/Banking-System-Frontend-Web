@@ -145,7 +145,7 @@ const Agents = () => {
                                 </button>
                                 <button
                                     className="btn btn-warning btn-sm me-2"
-                                    onClick={() => alert("Fonction de modification à implémenter.")}
+                                    onClick={() => alert("Cette fonctionnalité sera bientôt disponible")}
                                 >
                                     Modifier
                                 </button>
