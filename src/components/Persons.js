@@ -29,7 +29,7 @@ const Persons = () => {
     };
 
     useEffect(() => {
-        fetch("/SERVICE-USERS/api/get-persons/" + admin[0])
+        fetch("https://proxy.quick-send.site/SERVICE-USERS/api/get-persons/" + admin[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Erreur lors du chargement des données.");
@@ -54,7 +54,7 @@ const Persons = () => {
             destinataire: tel
         };
 
-        fetch(`/SERVICE-NOTIFICATION/api/send-notification`, {
+        fetch(`https://proxy.quick-send.site/SERVICE-NOTIFICATION/api/send-notification`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

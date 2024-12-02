@@ -12,7 +12,7 @@ const LoginPage = () => {
     e.preventDefault();
     setError(''); 
     try {
-      const response = await fetch('/SERVICE-AUTHENTIFICATION/auth/login-admin', {
+      const response = await fetch('https://proxy.quick-send.site/SERVICE-AUTHENTIFICATION/auth/login-admin', {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json',

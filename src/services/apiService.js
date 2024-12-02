@@ -1,7 +1,7 @@
 import axios from 'axios';
 import getAdminId from '../services/Security';
-const BASE_URL = '/SERVICE-USERS/api';
-const BASE_URL_ADMIN = '/SERVICE-ADMIN/api/agence';
+const BASE_URL = 'https://proxy.quick-send.site/SERVICE-USERS/api';
+const BASE_URL_ADMIN = 'https://proxy.quick-send.site/SERVICE-ADMIN/api/agence';
 
 
 const token = localStorage.getItem('token');
