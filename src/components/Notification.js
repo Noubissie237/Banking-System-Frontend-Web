@@ -32,7 +32,7 @@ const Notification = () => {
             destinataire: notificationType
         };
 
-        fetch(`https://proxy.quick-send.site/SERVICE-NOTIFICATION/api/send-notification`, {
+        fetch(`/SERVICE-NOTIFICATION/api/send-notification`, {
             method: "POST",
             headers: {
                 "Content-Type": "application/json",

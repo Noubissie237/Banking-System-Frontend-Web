@@ -10,7 +10,7 @@ const Demandes = () => {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        fetch("https://proxy.quick-send.site/SERVICE-ADMIN/api/demande/get-all-by-agence/"+admin[0])
+        fetch("/SERVICE-ADMIN/api/demande/get-all-by-agence/"+admin[0])
             .then((response) => {
                 if (!response.ok) {
                     throw new Error("Erreur lors du chargement des données.");
@@ -29,7 +29,7 @@ const Demandes = () => {
 
     const handleDelete = (id) => {
         if (window.confirm("Voulez-vous vraiment supprimer ce demande ?")) {
-            fetch(`https://proxy.quick-send.site/SERVICE-ADMIN/demandes/${id}`, {
+            fetch(`/SERVICE-ADMIN/demandes/${id}`, {
                 method: "DELETE",
             })
                 .then((response) => {
@@ -48,7 +48,7 @@ const Demandes = () => {
 
     const handleReject = (id) => {
         if (window.confirm("Voulez-vous vraiment rejetter ce demande ?")) {
-            fetch(`https://proxy.quick-send.site/SERVICE-ADMIN/api/demande/update-statut/${id}?statut=REJETEE`, {
+            fetch(`/SERVICE-ADMIN/api/demande/update-statut/${id}?statut=REJETEE`, {
                 method: "PUT",
             })
                 .then((response) => {
@@ -66,7 +66,7 @@ const Demandes = () => {
     };
 
     const handleAccept = (id) => {
-        fetch(`https://proxy.quick-send.site/SERVICE-ADMIN/api/demande/update-statut/${id}?statut=ACCEPTEE`, {
+        fetch(`/SERVICE-ADMIN/api/demande/update-statut/${id}?statut=ACCEPTEE`, {
             method: "PUT",
         })
             .then((response) => {
